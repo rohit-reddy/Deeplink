@@ -10,3 +10,6 @@ adb shell am start -W -a android.intent.action.VIEW -d "https://www.rohitreddy.c
 
 This command starts the ADB shell with the VIEW action and specifies the deep link URL.
 
+Handling Deep Links When the User Doesn’t Have Your App Installed.
+
+Added support for Firebase Dynamic Deeplinks.
