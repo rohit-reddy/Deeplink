@@ -1,1 +1,1 @@
-# MyDeeplinkSample
+# MyDeeplink
