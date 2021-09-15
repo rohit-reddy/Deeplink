@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "888590357744",
+    "project_id": "deeplinksdemo-182f7",
+    "storage_bucket": "deeplinksdemo-182f7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:888590357744:android:8750c2c5934e64aad65e35",
+        "android_client_info": {
+          "package_name": "com.raywenderlich.android.promoapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "888590357744-mpo7bmadc7b0m8aa1ric7casntermt3u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYs6gun2Ma5M1wd0Z7HtNXcqU4DpTW2EQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "888590357744-mpo7bmadc7b0m8aa1ric7casntermt3u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:888590357744:android:1a4e371c33a817a2d65e35",
+        "android_client_info": {
+          "package_name": "com.rohith.handleDeeplink"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "888590357744-mpo7bmadc7b0m8aa1ric7casntermt3u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYs6gun2Ma5M1wd0Z7HtNXcqU4DpTW2EQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "888590357744-mpo7bmadc7b0m8aa1ric7casntermt3u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

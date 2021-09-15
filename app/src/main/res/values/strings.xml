@@ -4,6 +4,7 @@
     <string name="text_product_label">Cricket Ball Outdoors</string>
     <string name="text_product_brand">Brand : Wiki</string>
     <string name="text_product_price">$50</string>
+    <string name="text_new_product_price">$25</string>
     <string name="text_promo_code_label">Use this promo code to get 50% discount</string>
     <string name="text_promo_code">ABCDE</string>
     <string name="text_offer_claimed">Congratulations! You have claimed the offer! Buy the Basketball at $25</string>
