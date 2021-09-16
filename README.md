@@ -13,3 +13,7 @@ This command starts the ADB shell with the VIEW action and specifies the deep li
 Handling Deep Links When the User Doesn’t Have Your App Installed.
 
 Added support for Firebase Dynamic Deeplinks.
+
+Open the link you generated in the Firebase console on a browser on your Android device. For this, you can use this link: https://handlemydeeplink.page.link/naxz.
+
+Opening the link redirects you to the app. Tap CLAIM OFFER.
