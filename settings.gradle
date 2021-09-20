@@ -1,2 +1,3 @@
 rootProject.name = "Deeplink"
 include ':app'
+include ':deeplinkprocessor'

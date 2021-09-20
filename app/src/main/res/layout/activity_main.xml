@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    tools:context=".MainActivity">
+    tools:context=".main.MainActivity">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardImage"
@@ -154,11 +154,28 @@
         android:background="@android:color/holo_green_dark"
         android:textSize="16sp"
         android:text="@string/text_claim_offer"
+        android:onClick="onClick"
         android:textColor="@color/white"
         app:layout_constraintTop_toBottomOf="@id/tvOfferClaimed"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnBuy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:background="@android:color/holo_green_dark"
+        android:textSize="16sp"
+        android:onClick="onClick"
+        android:text="@string/text_buy_now"
+        android:visibility="invisible"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
 
     <androidx.constraintlayout.widget.Group
         android:id="@+id/discountGroup"

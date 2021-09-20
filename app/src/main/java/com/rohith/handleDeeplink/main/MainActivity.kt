@@ -1,4 +1,4 @@
-package com.rohith.handleDeeplink
+package com.rohith.handleDeeplink.main
 
 import android.content.Intent
 import android.graphics.Paint
@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.dynamiclinks.ktx.dynamicLinks
 import com.google.firebase.ktx.Firebase
+import com.rohith.handleDeeplink.R
 import com.rohith.handleDeeplink.databinding.ActivityMainBinding
 
 
@@ -44,13 +45,6 @@ class MainActivity : AppCompatActivity() {
                 activityMainBinding.btnClaimOffer.isEnabled = true
                 activityMainBinding.discountGroup.visibility = View.VISIBLE
                 activityMainBinding.tvPromoCode.text = promotionCode
-
-                activityMainBinding.btnClaimOffer.setOnClickListener {
-                    activityMainBinding.tvProductPrice.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG or Paint.ANTI_ALIAS_FLAG
-                    activityMainBinding.tvNewProductPrice.visibility = View.VISIBLE
-                    activityMainBinding.tvOfferClaimed.visibility = View.VISIBLE
-                    activityMainBinding.btnClaimOffer.isEnabled = false
-                }
             }else{
                 activityMainBinding.discountGroup.visibility = View.GONE
             }
@@ -58,16 +52,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun handleFirebaseDynamicLinks(intent: Intent) {
-        // 1
         Firebase.dynamicLinks
             .getDynamicLink(intent)
             .addOnSuccessListener { dynamicLinkData ->
-                // 2
                 if (dynamicLinkData != null) {
                     showDynamicLinkOffer(dynamicLinkData.link)
                 }
             }
-            // 3
             .addOnFailureListener(this) { e ->
                 Log.d("DynamicLinkError", e.localizedMessage)
             }
@@ -88,14 +79,25 @@ class MainActivity : AppCompatActivity() {
             activityMainBinding.btnClaimOffer.isEnabled = true
             activityMainBinding.discountGroup.visibility = View.VISIBLE
             activityMainBinding.tvPromoCode.text = promotionCode
-            activityMainBinding.btnClaimOffer.setOnClickListener {
+        } else {
+            activityMainBinding.discountGroup.visibility = View.GONE
+        }
+    }
+
+    fun onClick(view: View) {
+        when(view.id){
+            activityMainBinding.btnBuy.id -> {
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse("deep://deep/content"))
+                startActivity(intent)
+            }
+
+            activityMainBinding.btnClaimOffer.id ->{
                 activityMainBinding.tvProductPrice.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG or Paint.ANTI_ALIAS_FLAG
                 activityMainBinding.tvNewProductPrice.visibility = View.VISIBLE
                 activityMainBinding.tvOfferClaimed.visibility = View.VISIBLE
                 activityMainBinding.btnClaimOffer.isEnabled = false
+                activityMainBinding.btnBuy.visibility = View.VISIBLE
             }
-        } else {
-            activityMainBinding.discountGroup.visibility = View.GONE
         }
     }
 
