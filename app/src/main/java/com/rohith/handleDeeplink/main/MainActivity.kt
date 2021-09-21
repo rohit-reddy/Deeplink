@@ -6,17 +6,22 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.dynamiclinks.ktx.dynamicLinks
 import com.google.firebase.ktx.Firebase
+import com.rohith.handleDeeplink.DeeplinkApplication
 import com.rohith.handleDeeplink.R
 import com.rohith.handleDeeplink.databinding.ActivityMainBinding
+import com.rohith.handleDeeplink.deeplink.CustomLiveDataModel
 
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var activityMainBinding: ActivityMainBinding
+    private val TAG = javaClass.simpleName
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme)
@@ -25,6 +30,12 @@ class MainActivity : AppCompatActivity() {
         activityMainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(activityMainBinding.root)
 
+        // TODO observe deeplink. LiveData considers an observer to be in an active state if the observer's lifecycle is in either the STARTED or RESUMED
+        val deeplinkObserver = Observer<String> { status ->
+            Log.d(TAG, "Deeplink Status: $status")
+            Toast.makeText(this, "Deeplink Status: $status", Toast.LENGTH_LONG).show()
+        }
+        CustomLiveDataModel.getInstance(this).currentState.observe(this, deeplinkObserver)
 
         handleIntent(intent)
         handleFirebaseDynamicLinks(intent)
@@ -97,6 +108,11 @@ class MainActivity : AppCompatActivity() {
                 activityMainBinding.tvOfferClaimed.visibility = View.VISIBLE
                 activityMainBinding.btnClaimOffer.isEnabled = false
                 activityMainBinding.btnBuy.visibility = View.VISIBLE
+            }
+
+            activityMainBinding.cardImage.id ->{
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse("deep://deep/content"))
+                startActivity(intent)
             }
         }
     }

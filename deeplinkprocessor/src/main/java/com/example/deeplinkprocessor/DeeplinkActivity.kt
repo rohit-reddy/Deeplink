@@ -2,9 +2,13 @@ package com.example.deeplinkprocessor
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.MutableLiveData
 
 abstract class DeeplinkActivity : AppCompatActivity() {
+    var handleStatus = false
+    var deeplinkData : String? = null
 
     abstract fun getDeeplinkHandler(): DeeplinkHandler
 
@@ -20,8 +24,8 @@ abstract class DeeplinkActivity : AppCompatActivity() {
 
     private fun handleIntent(intent: Intent) {
         intent.data?.toString()?.let {
-            getDeeplinkHandler().process(it)
+            deeplinkData = it
+            handleStatus = getDeeplinkHandler().process(it)
         }
-        finish()
     }
 }

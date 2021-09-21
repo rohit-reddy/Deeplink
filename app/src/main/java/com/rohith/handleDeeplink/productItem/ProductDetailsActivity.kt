@@ -7,11 +7,16 @@ import com.rohith.handleDeeplink.databinding.ActivityProductDetailsBinding
 import android.content.Intent
 import android.content.Intent.ACTION_VIEW
 import android.net.Uri
+import android.util.Log
+import androidx.lifecycle.Observer
+import com.rohith.handleDeeplink.DeeplinkApplication
 import com.rohith.handleDeeplink.R
+import com.rohith.handleDeeplink.deeplink.CustomLiveDataModel
 
 
 class ProductDetailsActivity : AppCompatActivity() {
     lateinit var prodcutDetailsBinding : ActivityProductDetailsBinding
+    private val TAG = javaClass.simpleName
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme)
@@ -19,6 +24,12 @@ class ProductDetailsActivity : AppCompatActivity() {
         println("onCreate(${javaClass.simpleName})")
         prodcutDetailsBinding = ActivityProductDetailsBinding.inflate(layoutInflater)
         setContentView(prodcutDetailsBinding.root)
+
+//        //observe deeplink
+//        val deeplinkObserver = Observer<String> { status ->
+//            Log.d(TAG, "Deeplink Status: $status")
+//        }
+//        (applicationContext as DeeplinkApplication).deeplinkManager.currentState.observe(this, deeplinkObserver)
 
         prodcutDetailsBinding.buttonBack.setOnClickListener {
             NavUtils.getParentActivityIntent(this)?.let { intent ->
@@ -29,7 +40,7 @@ class ProductDetailsActivity : AppCompatActivity() {
         }
 
         prodcutDetailsBinding.btnOrderDtls.setOnClickListener {
-            val intent = Intent(ACTION_VIEW, Uri.parse("deep://deep/custom/damian"))
+            val intent = Intent(ACTION_VIEW, Uri.parse("deep://deep/custom/Rohit"))
             startActivity(intent)
         }
     }

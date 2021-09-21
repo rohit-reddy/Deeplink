@@ -1,15 +1,23 @@
 package com.rohith.handleDeeplink.orderItem
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NavUtils
+import androidx.lifecycle.Observer
+import com.example.deeplinkprocessor.DeeplinkProcessor
+import com.rohith.handleDeeplink.DeeplinkApplication
 import com.rohith.handleDeeplink.R
 import com.rohith.handleDeeplink.databinding.ActivityOrderDetailsBinding
+import com.rohith.handleDeeplink.deeplink.CustomLiveDataModel
 
 
 class OrderDetailsActivity: AppCompatActivity() {
 
     private lateinit var orderDetailsBinding: ActivityOrderDetailsBinding
+    private val TAG = javaClass.simpleName
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme)
@@ -18,8 +26,16 @@ class OrderDetailsActivity: AppCompatActivity() {
         orderDetailsBinding = ActivityOrderDetailsBinding.inflate(layoutInflater)
         setContentView(orderDetailsBinding.root)
 
-        intent.extras?.getString("EXTRA_NAME")?.let { name ->
-            orderDetailsBinding.textTitle.text = "Hello, $name!"
+
+
+//        //observe deeplink
+//        val deeplinkObserver = Observer<String> { status ->
+//            Log.d(TAG, "Deeplink Status: $status")
+//        }
+//        (applicationContext as DeeplinkApplication).deeplinkManager.currentState.observe(this, deeplinkObserver)
+
+        (intent.extras?.get(DeeplinkProcessor.EXTRA_KEY) as CustomDeeplinkModel).let {
+            orderDetailsBinding.textTitle.text = "Hey ${it.name} !"
         }
 
         orderDetailsBinding.btnBack.setOnClickListener {
@@ -28,6 +44,11 @@ class OrderDetailsActivity: AppCompatActivity() {
                 startActivity(intent)
             }
             super.onBackPressed()
+        }
+
+        orderDetailsBinding.btnPlaceOrder.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("deep://deeplink/order/Rohit"))
+            startActivity(intent)
         }
     }
 

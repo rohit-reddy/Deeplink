@@ -1,6 +1,7 @@
 package com.rohith.handleDeeplink.deeplink
 
 import android.content.Context
+import androidx.lifecycle.MutableLiveData
 import com.example.deeplinkprocessor.DeeplinkHandler
 import com.example.deeplinkprocessor.DeeplinkProcessor
 import com.example.deeplinkprocessor.DefaultDeeplinkHandler
@@ -8,7 +9,7 @@ import com.rohith.handleDeeplink.productItem.ProductDetailsDeeplinkItem
 import com.rohith.handleDeeplink.orderItem.OrderDetailsDeeplinkItem
 import com.rohith.handleDeeplink.main.MainDeeplinkProcessor
 
-class DeeplinkManager private constructor(private val context: Context) {
+class DeeplinkManager private constructor(context: Context) {
 
     private val processors: Set<DeeplinkProcessor> = hashSetOf(ProductDetailsDeeplinkItem(context),
     OrderDetailsDeeplinkItem(context),MainDeeplinkProcessor(context))
