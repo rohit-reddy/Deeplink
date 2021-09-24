@@ -1,9 +1,11 @@
 package com.rohith.handleDeeplink.deeplink
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.Observer
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.example.deeplinkprocessor.DeeplinkActivity
 import com.example.deeplinkprocessor.DeeplinkHandler
 import com.rohith.handleDeeplink.DeeplinkApplication
@@ -24,7 +26,12 @@ class MyDeeplinkActivity : DeeplinkActivity() {
 //        CustomLiveDataModel.getInstance(this).currentState.observe(this, deeplinkObserver)
 //
         if (!handleStatus){
-            CustomLiveDataModel.getInstance(this).changeState("Failed !! for deeplink $deeplinkData")
+            //CustomLiveDataModel.getInstance(this).changeState("Failed !! for deeplink $deeplinkData")
+            Intent().also { intent ->
+                intent.action = "com.rohith.handleDeeplink.MY.DEEPLINK.HANDLE"
+                intent.putExtra("Data", "${javaClass.canonicalName} Failed")
+                LocalBroadcastManager.getInstance(this).sendBroadcast(intent)
+            }
         }
         finish()
     }

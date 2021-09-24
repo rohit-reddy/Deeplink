@@ -1,6 +1,7 @@
 package com.rohith.handleDeeplink.main
 
 import android.content.Intent
+import android.content.IntentFilter
 import android.graphics.Paint
 import android.net.Uri
 import android.os.Bundle
@@ -9,16 +10,18 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.dynamiclinks.ktx.dynamicLinks
 import com.google.firebase.ktx.Firebase
-import com.rohith.handleDeeplink.DeeplinkApplication
 import com.rohith.handleDeeplink.R
+import com.rohith.handleDeeplink.broadcast.IDeeplinkListerner
+import com.rohith.handleDeeplink.broadcast.MyBroadcastReceiver
 import com.rohith.handleDeeplink.databinding.ActivityMainBinding
 import com.rohith.handleDeeplink.deeplink.CustomLiveDataModel
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), IDeeplinkListerner {
 
     private lateinit var activityMainBinding: ActivityMainBinding
     private val TAG = javaClass.simpleName
@@ -30,12 +33,19 @@ class MainActivity : AppCompatActivity() {
         activityMainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(activityMainBinding.root)
 
-        // TODO observe deeplink. LiveData considers an observer to be in an active state if the observer's lifecycle is in either the STARTED or RESUMED
-        val deeplinkObserver = Observer<String> { status ->
-            Log.d(TAG, "Deeplink Status: $status")
-            Toast.makeText(this, "Deeplink Status: $status", Toast.LENGTH_LONG).show()
-        }
-        CustomLiveDataModel.getInstance(this).currentState.observe(this, deeplinkObserver)
+//        // TODO observe deeplink. via LiveData considers an observer to be in an active state if the observer's lifecycle is in either the STARTED or RESUMED
+//        val deeplinkObserver = Observer<String> { status ->
+//            Log.d(TAG, "Deeplink Status: $status")
+//            Toast.makeText(this, "Deeplink Status: $status", Toast.LENGTH_LONG).show()
+//        }
+//        CustomLiveDataModel.getInstance(this).currentState.observe(this, deeplinkObserver)
+
+        //TODO observe Deeplink via Broadcast Receiver
+        val broadcast = MyBroadcastReceiver()
+        broadcast.setDeeplinkHandleListener(this)
+        LocalBroadcastManager.getInstance(this).registerReceiver(broadcast, IntentFilter().apply {
+            addAction("com.rohith.handleDeeplink.MY.DEEPLINK.HANDLE")
+        })
 
         handleIntent(intent)
         handleFirebaseDynamicLinks(intent)
@@ -115,6 +125,12 @@ class MainActivity : AppCompatActivity() {
                 startActivity(intent)
             }
         }
+    }
+
+    override fun canHandle(status: String): Boolean {
+        Log.d(TAG, "Deeplink Status: $status")
+        Toast.makeText(this, "Deeplink Status: $status", Toast.LENGTH_LONG).show()
+        return true
     }
 
 
